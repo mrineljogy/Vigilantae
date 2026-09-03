@@ -1,146 +1,49 @@
 # Vigilantae
 
-> A portfolio-grade case-intelligence prototype for missing-person reports and verified public sightings.
+Vigilantae is a local-first case-review portfolio application. It demonstrates a complete operator workflow for registering U.S. case records, collecting photo-based public reports, reviewing visual similarity, and tracking outcomes on a map.
 
-Vigilantae is a local-first Streamlit application that demonstrates a complete investigation workflow: staff register a case, a public portal accepts a sighting, face landmarks are compared, and reviewers can inspect records and city-level activity.
+> This is a demonstration project. It is not connected to law enforcement, emergency services, or any government agency. For an urgent situation, contact the appropriate official service.
 
-![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
-![Streamlit](https://img.shields.io/badge/Streamlit-application-FF4B4B?logo=streamlit&logoColor=white)
-![SQLite](https://img.shields.io/badge/SQLite-local--first-003B57?logo=sqlite&logoColor=white)
-![CI](https://img.shields.io/badge/CI-GitHub_Actions-2088FF?logo=githubactions&logoColor=white)
+## What it does
 
-> **Safety note:** This is a portfolio prototype, not an identity-verification system. Biometric and personal data are sensitive. A potential match is an investigative lead and must be reviewed by an authorized human before any decision or action.
+- Creates local case records with a U.S. city, last-known location, notes, and optional reference photo.
+- Accepts photo-only public observations. Video upload is intentionally not supported.
+- Detects front-facing faces in uploaded photos and gives an **experimental visual similarity** score during an operator’s manual review.
+- Links reviewed reports to cases, records the case outcome, and displays city-level markers on a U.S. map.
+- Keeps records in a local SQLite file that is never committed to Git.
+- Protects the local console with an administrator passphrase that can be changed from Settings.
 
-## Highlights
-
-- Classified-console visual design with responsive Streamlit pages.
-- Admin and Officer access roles.
-- Case intake with multi-face selection and validation.
-- Public sighting intake from images or videos.
-- MediaPipe face-landmark extraction and KNN-based candidate matching.
-- Case archive, editing controls, CSV export, U.S. city map, and optional SMTP match alerts.
-- Local SQLite storage by default; optional PostgreSQL configuration for future deployment.
-- Automated database and email-behavior tests, plus GitHub Actions verification.
-
-## Screenshots
-
-| Secure entry | Operations desk |
-| --- | --- |
-| ![Vigilantae secure entry screen](assets/screenshots/entry-dashboard.png) | ![Vigilantae operations desk](assets/screenshots/operations-desk.png) |
-
-| Case registration | Public sighting intake |
-| --- | --- |
-| ![Face-assisted case registration](assets/screenshots/register-case.png) | ![Public sighting intake](assets/screenshots/public-sighting.png) |
-
-| Match analysis | United States field map |
-| --- | --- |
-| ![Candidate match analysis](assets/screenshots/match-analysis.png) | ![United States case map](assets/screenshots/us-field-map.png) |
-
-The repository also includes an [operations guide capture](assets/screenshots/operations-guide.png) 
-
-## How it works
-
-```text
-Officer registers case + photo
-            ↓
-MediaPipe extracts face landmarks → local SQLite stores case + metadata
-            ↓
-Public portal receives a sighting photo/video
-            ↓
-Admin runs Match Cases → candidate matches are presented for human review
-            ↓
-Optional SMTP notification is sent after a match is recorded
-```
-
-## Quick start
-
-### Prerequisites
-
-- Python 3.12 recommended
-- Git
-- A clear test image that you are permitted to use
-
-### 1. Clone and install
-
-
-
-
-### 2. Create your local administrator account
+## Run locally
 
 ```powershell
-Copy-Item login_config.example.yml login_config.yml
-.\venv\Scripts\python.exe scripts\create_password_hash.py
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+streamlit run app.py --server.port 8505
 ```
 
-Copy the generated hash into the `password:` field in `login_config.yml`. Also replace the display name, email, city, area, and cookie key. This local file is ignored by Git.
+Open `http://localhost:8505`. On a brand-new local database, sign in with `admin` / `ChangeMe!2026`, then immediately change the passphrase in **Settings**.
 
-### 3. Run the private operations portal
+## Suggested demo flow
+
+1. Sign in and open **Register case**.
+2. Add a case in one of the listed U.S. cities and attach a clear, front-facing reference photo.
+3. Open **Public report** and submit a photo-based observation.
+4. In **Review queue**, choose a target case, inspect the photo comparison, and confirm a manual decision.
+5. Show **Case archive** and **U.S. map** for portfolio screenshots.
+
+The comparison score is not identity confirmation. Treat it as a visual sorting signal only; final decisions remain with the operator.
+
+## Repository checks
 
 ```powershell
-.\venv\Scripts\streamlit.exe run Home.py
+python scripts/check.py
 ```
 
-On first face-detection use, the MediaPipe model downloads automatically. Local case records are saved in `sqlite_database.db`; local images are saved in `resources/`. Neither is committed to Git.
+The included GitHub Actions workflow runs the same test suite on pushes and pull requests.
 
-### 4. Run the public sighting portal (optional)
+## Project assets
 
-Use a second terminal:
+The `assets/screenshots` directory contains the project’s presentation captures. Local records, uploaded photos, passwords, and Streamlit settings are excluded through `.gitignore`.
 
-```powershell
-.\venv\Scripts\streamlit.exe run mobile_app.py --server.port 8502
-```
-
-## Local test flow
-
-1. Sign in to `Home.py` as an Admin.
-2. Register a dummy case using non-sensitive test data.
-3. Confirm it appears in **All Cases** and **Map**.
-4. Submit a permitted test sighting through `mobile_app.py`.
-5. In the private portal, open **Match Cases** and run **Refresh**.
-6. Review the result manually. Do not treat a score as verified identification.
-
-## Optional email notifications
-
-Email is disabled until SMTP settings are supplied. Use `.env.example` as a private configuration checklist, then set these environment variables in your terminal before starting Streamlit:
-
-```text
-SMTP_HOST=smtp.example.com
-SMTP_PORT=587
-SMTP_USER=operations@example.com
-SMTP_PASSWORD=an-app-password
-NOTIFY_EMAIL=operations@example.com
-```
-
-Use an app-specific password, not a normal email password. Without these values, matching continues to work and email is safely skipped.
-
-## Verify the project
-
-Run the same checks used in continuous integration:
-
-```powershell
-.\venv\Scripts\python.exe -m compileall -q Home.py mobile_app.py pages scripts tests
-.\venv\Scripts\python.exe -m unittest discover -s tests -v
-```
-
-Or run both commands with:
-
-```powershell
-.\venv\Scripts\python.exe scripts\verify.py
-```
-
-
-## Project structure
-
-```text
-Home.py                 # Authenticated operations dashboard
-mobile_app.py           # Public sighting portal
-pages/                  # Case intake, archive, matching, map, and help screens
-pages/helper/           # Database, matching, email, UI, and vision helpers
-static/                 # Versioned visual assets
-tests/                  # Automated regression tests
-.github/workflows/      # GitHub Actions verification
-```
-
-## Responsible use
-
-Vigilantae is a portfolio prototype. Do not use it with real personal or biometric information without appropriate authorization, consent, and safeguards.
+See [THIRD_PARTY.md](THIRD_PARTY.md) for the external components used by this project.

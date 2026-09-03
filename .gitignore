@@ -8,29 +8,26 @@ htmlcov/
 .venv/
 venv/
 
-# Local secrets and deployment configuration
+# Local runtime state and private configuration
+.streamlit/
+data/
 .env
 .env.*
 !.env.example
 .streamlit/secrets.toml
+Finding-missing-person-using-AI-master/
 login_config.yml
-
-# Private case data and generated models
 sqlite_database.db
 resources/
-scripts/bulk_data/
 classifier.pkl
 classifier_cache.txt
-
-# Large local model download
 face_landmarker.task
-
-# OS/editor files
-.DS_Store
-CLAUDE.md
-
-# Superseded local screenshots; the Vigilantae gallery uses the named files below.
+scripts/bulk_data/
 assets/screenshots/cases_by_city.png
 assets/screenshots/homepage.png
 assets/screenshots/register_new_case.png
 assets/screenshots/view_cases.png
+
+# OS/editor files
+.DS_Store
+CLAUDE.md

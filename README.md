@@ -7,8 +7,8 @@ Vigilantae is a local-first case-review portfolio application. It demonstrates a
 ## What it does
 
 - Creates local case records with a U.S. city, last-known location, notes, and optional reference photo.
-- Accepts photo-only public observations. Video upload is intentionally not supported.
-- Detects front-facing faces in uploaded photos and gives an **experimental visual similarity** score during an operator’s manual review.
+- Accepts photo public observations. 
+- Detects front-facing faces in uploaded photos and gives an **experimental visual similarity** score.
 - Links reviewed reports to cases, records the case outcome, and displays city-level markers on a U.S. map.
 - Keeps records in a local SQLite file that is never committed to Git.
 - Protects the local console with an administrator passphrase that can be changed from Settings.

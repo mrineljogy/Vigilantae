@@ -6,7 +6,6 @@ from sqlmodel import Field, create_engine, SQLModel
 
 class PublicSubmissions(SQLModel, table=True):
     __table_args__ = {"extend_existing": True}
-    # Changed: UUID -> str, uuid4 -> lambda: str(uuid4())
     id: str = Field(
         primary_key=True, default_factory=lambda: str(uuid4()), nullable=False
     )
@@ -25,7 +24,6 @@ class PublicSubmissions(SQLModel, table=True):
 
 class RegisteredCases(SQLModel, table=True):
     __table_args__ = {"extend_existing": True}
-    # Changed: UUID -> str, uuid4 -> lambda: str(uuid4())
     id: str = Field(
         primary_key=True, default_factory=lambda: str(uuid4()), nullable=False
     )

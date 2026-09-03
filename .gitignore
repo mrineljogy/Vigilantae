@@ -29,9 +29,6 @@ face_landmarker.task
 .DS_Store
 CLAUDE.md
 
-# Local source archive; never include a downloaded upstream copy in this repo.
-Finding-missing-person-using-AI-master/
-
 # Superseded local screenshots; the Vigilantae gallery uses the named files below.
 assets/screenshots/cases_by_city.png
 assets/screenshots/homepage.png

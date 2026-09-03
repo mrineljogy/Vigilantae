@@ -133,18 +133,6 @@ Or run both commands with:
 .\venv\Scripts\python.exe scripts\verify.py
 ```
 
-## Repository hygiene
-
-The following private/local files are intentionally excluded from version control:
-
-- `login_config.yml` and `.streamlit/secrets.toml`
-- `.env`
-- `sqlite_database.db`
-- `resources/` uploads
-- `face_landmarker.task`
-- `venv/`
-
-Templates such as `login_config.example.yml`, `.env.example`, and `.streamlit/secrets.example.toml` are included so a new developer can configure the project safely.
 
 ## Project structure
 

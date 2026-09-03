@@ -36,7 +36,7 @@ Vigilantae is a local-first Streamlit application that demonstrates a complete i
 | --- | --- |
 | ![Candidate match analysis](assets/screenshots/match-analysis.png) | ![United States case map](assets/screenshots/us-field-map.png) |
 
-The repository also includes an [operations guide capture](assets/screenshots/operations-guide.png) and a personal project signature asset at [mrinel-signature.jpg](assets/screenshots/mrinel-signature.jpg).
+The repository also includes an [operations guide capture](assets/screenshots/operations-guide.png) 
 
 ## How it works
 
@@ -62,13 +62,8 @@ Optional SMTP notification is sent after a match is recorded
 
 ### 1. Clone and install
 
-```powershell
-git clone https://github.com/YOUR-USERNAME/vigilantae.git
-cd vigilantae
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+
+
 
 ### 2. Create your local administrator account
 
@@ -133,18 +128,6 @@ Or run both commands with:
 .\venv\Scripts\python.exe scripts\verify.py
 ```
 
-## Repository hygiene
-
-The following private/local files are intentionally excluded from version control:
-
-- `login_config.yml` and `.streamlit/secrets.toml`
-- `.env`
-- `sqlite_database.db`
-- `resources/` uploads
-- `face_landmarker.task`
-- `venv/`
-
-Templates such as `login_config.example.yml`, `.env.example`, and `.streamlit/secrets.example.toml` are included so a new developer can configure the project safely.
 
 ## Project structure
 

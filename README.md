@@ -36,7 +36,7 @@ Vigilantae is a local-first Streamlit application that demonstrates a complete i
 | --- | --- |
 | ![Candidate match analysis](assets/screenshots/match-analysis.png) | ![United States case map](assets/screenshots/us-field-map.png) |
 
-The repository also includes an [operations guide capture](assets/screenshots/operations-guide.png) and a personal project signature asset at [mrinel-signature.jpg](assets/screenshots/mrinel-signature.jpg).
+The repository also includes an [operations guide capture](assets/screenshots/operations-guide.png) 
 
 ## How it works
 

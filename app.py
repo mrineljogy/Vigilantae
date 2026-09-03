@@ -16,7 +16,7 @@ bootstrap_admin(store)
 
 if not st.session_state.get("operator"):
     st.title("VIGILANTAE")
-    st.caption("LOCAL CASE REVIEW CONSOLE")
+    st.html("<div class='status-pulse'>● LIVE LOCAL REVIEW CHANNEL · PHOTO-ONLY COMPARISON</div>")
     with st.form("access"):
         username = st.text_input("Operator ID")
         password = st.text_input("Passphrase", type="password")

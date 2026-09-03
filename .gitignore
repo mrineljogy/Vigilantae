@@ -10,6 +10,8 @@ venv/
 
 # Local runtime state and private configuration
 .streamlit/
+!.streamlit/
+!.streamlit/config.toml
 data/
 .env
 .env.*

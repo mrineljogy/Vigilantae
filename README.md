@@ -42,8 +42,8 @@ python scripts/check.py
 
 The included GitHub Actions workflow runs the same test suite on pushes and pull requests.
 
-## Project assets
+## Local data
 
-The `assets/screenshots` directory contains the project’s presentation captures. Local records, uploaded photos, passwords, and Streamlit settings are excluded through `.gitignore`.
+Local records, uploaded photos, passwords, and Streamlit settings are excluded through `.gitignore`.
 
 See [THIRD_PARTY.md](THIRD_PARTY.md) for the external components used by this project.

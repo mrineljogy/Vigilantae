@@ -62,13 +62,8 @@ Optional SMTP notification is sent after a match is recorded
 
 ### 1. Clone and install
 
-```powershell
-git clone https://github.com/YOUR-USERNAME/vigilantae.git
-cd vigilantae
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+
+
 
 ### 2. Create your local administrator account
 

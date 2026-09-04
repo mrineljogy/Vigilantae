@@ -14,5 +14,7 @@ def render(store, operator):
 
     st.divider()
     st.subheader(f"Welcome back, {operator['display_name']}")
-    st.write("Use Register case to add a record, Public report to log an observation, and Review queue to link the two. This is a local portfolio demo: no police, federal, or emergency-service affiliation is implied.")
+    st.markdown("**Review pipeline**")
+    st.code("Case created → evidence submitted → non-biometric evidence analysis → photo comparison signal → ranked leads → human review", language=None)
+    st.write("Use Register case to add a record, Public report to log an observation, and Review queue to assess ranked leads. This is a local portfolio demo: no police, federal, or emergency-service affiliation is implied.")
     st.info("For an actual emergency or missing-person report, contact local emergency services or the appropriate official agency.")

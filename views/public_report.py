@@ -17,6 +17,7 @@ def render(store):
         contact = st.text_input("Contact detail (optional)")
         location = st.selectbox("U.S. city *", list(CITY_COORDINATES))
         case_label = st.selectbox("Related case (optional)", ["Unlinked"] + list(choices))
+        evidence_terms = st.text_input("Observed non-biometric clues", placeholder="red jacket, backpack, blue sedan")
         details = st.text_area("What was observed? *")
         submitted = st.form_submit_button("Submit report")
     if submitted:
@@ -31,6 +32,6 @@ def render(store):
         store.create_report({
             "report_id": report_id, "case_id": choices.get(case_label),
             "observer": observer.strip(), "contact": contact.strip(), "location": location,
-            "details": details.strip(), "photo_path": photo_path, "created_at": store.now(),
+            "details": details.strip(), "photo_path": photo_path, "evidence_terms": evidence_terms.strip(), "created_at": store.now(),
         })
         st.success("Report recorded. An operator can assess it in the review queue.")

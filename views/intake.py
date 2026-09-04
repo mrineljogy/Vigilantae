@@ -20,6 +20,7 @@ def render(store, operator):
         with right:
             city = st.selectbox("U.S. city *", list(CITY_COORDINATES))
             last_known = st.text_input("Last known location *", placeholder="Transit station, neighborhood, landmark")
+            evidence_terms = st.text_input("Known non-biometric clues", placeholder="red jacket, backpack, blue sedan")
             notes = st.text_area("Review notes", placeholder="Describe information useful to an operator.")
         submitted = st.form_submit_button("Create case")
     if submitted:
@@ -34,6 +35,6 @@ def render(store, operator):
         store.create_case({
             "case_id": case_id, "title": title.strip(), "age": int(age), "guardian": guardian.strip(),
             "contact_phone": phone.strip(), "city": city, "last_known_location": last_known.strip(),
-            "notes": notes.strip(), "photo_path": photo_path, "created_by": operator["username"], "created_at": store.now(),
+            "notes": notes.strip(), "photo_path": photo_path, "evidence_terms": evidence_terms.strip(), "created_by": operator["username"], "created_at": store.now(),
         })
         st.success(f"Case {case_id} is now open and appears in the archive and U.S. map.")

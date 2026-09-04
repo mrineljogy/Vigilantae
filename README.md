@@ -8,8 +8,9 @@ Vigilantae is a local-first case-review portfolio application. It demonstrates a
 
 - Creates local case records with a U.S. city, last-known location, notes, and optional reference photo.
 - Accepts photo-only public observations. Video upload is intentionally not supported.
-- Detects front-facing faces in uploaded photos and gives an **experimental visual similarity** score during an operator’s manual review.
-- Links reviewed reports to cases, records the case outcome, and displays city-level markers on a U.S. map.
+- Detects front-facing faces in uploaded photos and produces an **experimental photo comparison signal** during manual review.
+- Ranks leads using transparent, non-biometric clues (city and submitted descriptors) alongside the optional photo signal.
+- Links human-reviewed evidence to cases, records the case outcome, and displays city-level markers on a U.S. map.
 - Keeps records in a local SQLite file that is never committed to Git.
 - Protects the local console with an administrator passphrase that can be changed from Settings.
 
@@ -29,10 +30,10 @@ Open `http://localhost:8505`. On a brand-new local database, sign in with `admin
 1. Sign in and open **Register case**.
 2. Add a case in one of the listed U.S. cities and attach a clear, front-facing reference photo.
 3. Open **Public report** and submit a photo-based observation.
-4. In **Review queue**, choose a target case, inspect the photo comparison, and confirm a manual decision.
+4. In **Ranked lead review**, inspect the ranked evidence signals, choose a lead, and confirm a manual decision.
 5. Show **Case archive** and **U.S. map** for portfolio screenshots.
 
-The comparison score is not identity confirmation. Treat it as a visual sorting signal only; final decisions remain with the operator.
+The comparison score is not identity confirmation. Treat it as a visual sorting signal only; final decisions remain with the operator. The app supports submitted photos, not live or video tracking.
 
 ## Repository checks
 

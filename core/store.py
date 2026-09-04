@@ -25,16 +25,18 @@ class CaseStore:
                     case_id TEXT PRIMARY KEY, title TEXT NOT NULL, age INTEGER,
                     guardian TEXT, contact_phone TEXT, city TEXT NOT NULL,
                     last_known_location TEXT NOT NULL, notes TEXT, status TEXT NOT NULL,
-                    photo_path TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL
+                    photo_path TEXT, evidence_terms TEXT, created_by TEXT NOT NULL, created_at TEXT NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS reports (
                     report_id TEXT PRIMARY KEY, case_id TEXT, observer TEXT NOT NULL,
                     contact TEXT, location TEXT NOT NULL, details TEXT, state TEXT NOT NULL,
-                    photo_path TEXT, created_at TEXT NOT NULL, reviewed_at TEXT
+                    photo_path TEXT, evidence_terms TEXT, created_at TEXT NOT NULL, reviewed_at TEXT
                 );
             """)
             self._add_column_if_missing(db, "cases", "photo_path", "TEXT")
             self._add_column_if_missing(db, "reports", "photo_path", "TEXT")
+            self._add_column_if_missing(db, "cases", "evidence_terms", "TEXT")
+            self._add_column_if_missing(db, "reports", "evidence_terms", "TEXT")
 
     @staticmethod
     def _add_column_if_missing(db, table: str, column: str, definition: str):
@@ -67,18 +69,22 @@ class CaseStore:
             db.execute(sql, values)
 
     def create_case(self, record: dict):
+        record.setdefault("photo_path", None)
+        record.setdefault("evidence_terms", "")
         self.execute(
             """INSERT INTO cases
-            (case_id, title, age, guardian, contact_phone, city, last_known_location, notes, status, photo_path, created_by, created_at)
-            VALUES (:case_id, :title, :age, :guardian, :contact_phone, :city, :last_known_location, :notes, 'Open', :photo_path, :created_by, :created_at)""",
+            (case_id, title, age, guardian, contact_phone, city, last_known_location, notes, status, photo_path, evidence_terms, created_by, created_at)
+            VALUES (:case_id, :title, :age, :guardian, :contact_phone, :city, :last_known_location, :notes, 'Open', :photo_path, :evidence_terms, :created_by, :created_at)""",
             record,
         )
 
     def create_report(self, record: dict):
+        record.setdefault("photo_path", None)
+        record.setdefault("evidence_terms", "")
         self.execute(
             """INSERT INTO reports
-            (report_id, case_id, observer, contact, location, details, state, photo_path, created_at)
-            VALUES (:report_id, :case_id, :observer, :contact, :location, :details, 'Pending', :photo_path, :created_at)""",
+            (report_id, case_id, observer, contact, location, details, state, photo_path, evidence_terms, created_at)
+            VALUES (:report_id, :case_id, :observer, :contact, :location, :details, 'Pending', :photo_path, :evidence_terms, :created_at)""",
             record,
         )
 

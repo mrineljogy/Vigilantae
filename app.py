@@ -4,7 +4,7 @@ import streamlit as st
 
 from core.auth import authenticate, bootstrap_admin, change_password
 from core.store import CaseStore
-from core.theme import apply_console_theme
+from core.theme import apply_console_theme, render_hero
 from views import archive, briefing, intake, map_view, public_report, review
 
 
@@ -15,7 +15,7 @@ store.initialize()
 bootstrap_admin(store)
 
 if not st.session_state.get("operator"):
-    st.title("VIGILANTAE")
+    render_hero("SECURE ACCESS / LOCAL ONLY", "Vigilantae", "A sleek local evidence-review console with photo analysis and human-led decisions.")
     st.html("<div class='status-pulse'>● LIVE LOCAL REVIEW CHANNEL · PHOTO-ONLY COMPARISON</div>")
     with st.form("access"):
         username = st.text_input("Operator ID")

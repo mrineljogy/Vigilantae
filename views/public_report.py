@@ -3,16 +3,17 @@ from uuid import uuid4
 import streamlit as st
 
 from core.geography import CITY_COORDINATES
+from core.theme import render_face_scan_panel, render_hero
 from core.vision import load_primary_face, save_photo
 
 
 def render(store):
-    st.title("Public report desk")
-    st.caption("Record an observation for operator review. This demonstration does not contact authorities automatically.")
+    render_hero("EVIDENCE INTAKE / 02", "Evidence submission", "Add a photo and context clues for review. The console records leads locally and never dispatches automatically.")
+    render_face_scan_panel()
     cases = store.many("SELECT case_id, title FROM cases WHERE status = 'Open' ORDER BY created_at DESC")
     choices = {f"{item['case_id']} · {item['title']}": item['case_id'] for item in cases}
     with st.form("public-report", clear_on_submit=True):
-        photo = st.file_uploader("Observation photo (JPG or PNG)", type=["jpg", "jpeg", "png"])
+        photo = st.file_uploader("Observation photo — JPG or PNG", type=["jpg", "jpeg", "png"])
         observer = st.text_input("Reporter name *")
         contact = st.text_input("Contact detail (optional)")
         location = st.selectbox("U.S. city *", list(CITY_COORDINATES))

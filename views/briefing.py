@@ -1,9 +1,10 @@
 import streamlit as st
 
+from core.theme import render_hero
+
 
 def render(store, operator):
-    st.title("Operations briefing")
-    st.caption("LOCAL REVIEW CONSOLE · U.S. CASEWORK DEMONSTRATION")
+    render_hero("OPERATIONS / LIVE", "Operations briefing", "A local-first evidence review console for a controlled portfolio demonstration.")
     open_cases = store.one("SELECT COUNT(*) AS total FROM cases WHERE status = 'Open'")["total"]
     pending_reports = store.one("SELECT COUNT(*) AS total FROM reports WHERE state = 'Pending'")["total"]
     resolved = store.one("SELECT COUNT(*) AS total FROM cases WHERE status = 'Resolved'")["total"]

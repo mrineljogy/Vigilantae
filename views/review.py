@@ -1,11 +1,12 @@
 import streamlit as st
 
 from core.scoring import rank_leads
+from core.theme import render_face_scan_panel, render_hero
 
 
 def render(store, operator):
-    st.title("Ranked lead review")
-    st.caption("Non-biometric clues and photo comparison are ranked for a human decision; neither confirms identity.")
+    render_hero("ANALYSIS DESK / 03", "Ranked lead review", "Non-biometric evidence and photo signals are combined into an explainable review priority—not an identity decision.")
+    render_face_scan_panel()
     reports = store.many("SELECT * FROM reports WHERE state = 'Pending' ORDER BY created_at ASC")
     cases = store.many("SELECT case_id, title, city, photo_path, evidence_terms FROM cases WHERE status = 'Open' ORDER BY created_at DESC")
     if not reports:

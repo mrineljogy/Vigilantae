@@ -3,16 +3,17 @@ from uuid import uuid4
 import streamlit as st
 
 from core.geography import CITY_COORDINATES
+from core.theme import render_face_scan_panel, render_hero
 from core.vision import load_primary_face, save_photo
 
 
 def render(store, operator):
-    st.title("Register a case")
-    st.caption("Create a local record for review. Required fields are marked with an asterisk.")
+    render_hero("CASE INTAKE / 01", "Register a case", "Create a local case record and provide optional reference evidence for structured review.")
+    render_face_scan_panel()
     with st.form("case-intake", clear_on_submit=True):
         left, right = st.columns(2)
         with left:
-            photo = st.file_uploader("Reference photo (JPG or PNG)", type=["jpg", "jpeg", "png"])
+            photo = st.file_uploader("Reference photo — JPG or PNG", type=["jpg", "jpeg", "png"])
             title = st.text_input("Case title *", placeholder="Example: Jordan Doe")
             age = st.number_input("Age", min_value=0, max_value=120, value=25)
             guardian = st.text_input("Contact person")
